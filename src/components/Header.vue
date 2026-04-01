@@ -2,10 +2,7 @@
   <header class="header" :class="{ scrolled: isScrolled }">
     <div class="header-container">
       <div class="logo" @click="scrollToTop">
-        <div class="logo-icon">
-          <el-icon :size="28"><Promotion /></el-icon>
-        </div>
-        <span class="logo-text">Openclaw</span>
+        <img src="/logo2.png" alt="Openclaw" class="logo-img" />
       </div>
       <nav class="nav" :class="{ active: mobileMenuOpen }">
         <a href="#features" class="nav-link">产品服务</a>
@@ -82,15 +79,10 @@ onUnmounted(() => {
   cursor: pointer;
 }
 
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-gradient);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+.logo-img {
+  width: 190px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .logo-text {

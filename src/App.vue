@@ -3,8 +3,8 @@
     <Header />
     <main>
       <HeroSection />
-      <PainPoint />
-      <Convergence />
+      <PainAndSolution />
+      <ImageSlider />
       <ProductSection />
       <SocialProof />
       <PricingSection />
@@ -25,9 +25,9 @@ import { Top } from '@element-plus/icons-vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import HeroSection from './components/HeroSection.vue'
-import PainPoint from './components/PainPoint.vue'
-import Convergence from './components/Convergence.vue'
+import PainAndSolution from './components/PainAndSolution.vue'
 import ProductSection from './components/ProductSection.vue'
+import ImageSlider from './components/ImageSlider.vue'
 import SocialProof from './components/SocialProof.vue'
 import FAQSection from './components/FAQSection.vue'
 import PricingSection from './components/PricingSection.vue'

@@ -56,7 +56,7 @@
               <el-icon><User /></el-icon>
             </div>
             <div class="chat-info">
-              <span class="chat-name">小 O 助手</span>
+              <span class="chat-name">三少的助手</span>
               <span class="chat-status">企微数字员工</span>
             </div>
           </div>

@@ -4,10 +4,7 @@
       <div class="footer-content">
         <div class="footer-brand">
           <div class="logo">
-            <div class="logo-icon">
-              <el-icon :size="24"><Promotion /></el-icon>
-            </div>
-            <span class="logo-text">Openclaw</span>
+            <img src="/logo2.png" alt="Openclaw" class="logo-img" />
           </div>
           <p class="footer-desc">
             让 AI 成为你的数字员工<br>
@@ -49,7 +46,7 @@ import { Promotion } from '@element-plus/icons-vue'
 
 <style scoped>
 .footer {
-  background: #1a1a2e;
+  background: linear-gradient(135deg, rgb(238, 120, 185) 0%, rgb(255, 217, 89) 100%);
   color: #fff;
   padding: 60px 0 24px;
 }
@@ -68,15 +65,10 @@ import { Promotion } from '@element-plus/icons-vue'
   margin-bottom: 16px;
 }
 
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-gradient);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+.logo-img {
+  width: 190px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .logo-text {
