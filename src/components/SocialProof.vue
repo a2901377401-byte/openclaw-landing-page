@@ -5,34 +5,44 @@
         <h2 class="section-title">效率提升，看得见</h2>
         <p class="section-subtitle">真实数据，不玩虚的</p>
       </div>
-      <div class="proof-cards">
-        <div class="proof-card" v-for="(proof, index) in proofs" :key="index">
-          <div class="proof-visual">
-            <div class="comparison">
-              <div class="before">
-                <span class="label">Before</span>
-                <span class="time">{{ proof.before }}</span>
+      <div class="proof-slider-wrapper">
+        <div class="proof-slider">
+          <div class="proof-card" v-for="(proof, index) in proofs" :key="index">
+            <div class="proof-visual">
+              <div class="comparison">
+                <div class="before">
+                  <span class="label">Before</span>
+                  <span class="time">{{ proof.before }}</span>
+                </div>
+                <div class="arrow">
+                  <el-icon><Right /></el-icon>
+                </div>
+                <div class="after">
+                  <span class="label">After</span>
+                  <span class="time highlight">{{ proof.after }}</span>
+                </div>
               </div>
-              <div class="arrow">
-                <el-icon><Right /></el-icon>
+            </div>
+            <div class="proof-content">
+              <div class="proof-icon">
+                <el-icon :size="24"><component :is="proof.icon" /></el-icon>
               </div>
-              <div class="after">
-                <span class="label">After</span>
-                <span class="time highlight">{{ proof.after }}</span>
+              <h3 class="proof-title">{{ proof.title }}</h3>
+              <p class="proof-desc">{{ proof.desc }}</p>
+              <div class="proof-stat">
+                <span class="stat-value">{{ proof.improvement }}</span>
+                <span class="stat-label">效率提升</span>
               </div>
             </div>
           </div>
-          <div class="proof-content">
-            <div class="proof-icon">
-              <el-icon :size="24"><component :is="proof.icon" /></el-icon>
-            </div>
-            <h3 class="proof-title">{{ proof.title }}</h3>
-            <p class="proof-desc">{{ proof.desc }}</p>
-            <div class="proof-stat">
-              <span class="stat-value">{{ proof.improvement }}</span>
-              <span class="stat-label">效率提升</span>
-            </div>
-          </div>
+        </div>
+        <div class="slider-dots">
+          <span 
+            v-for="(_, index) in proofs" 
+            :key="index"
+            :class="{ active: currentSlide === index }"
+            @click="goToSlide(index)"
+          ></span>
         </div>
       </div>
     </div>
@@ -40,6 +50,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { Document, Timer, Cpu, Right } from '@element-plus/icons-vue'
 
 const proofs = [
@@ -68,12 +79,51 @@ const proofs = [
     improvement: '90%'
   }
 ]
+
+const currentSlide = ref(0)
+
+const goToSlide = (index) => {
+  currentSlide.value = index
+  scrollToSlide(index)
+}
+
+const scrollToSlide = (index) => {
+  const slider = document.querySelector('.proof-slider')
+  if (slider) {
+    const cardWidth = slider.querySelector('.proof-card')?.offsetWidth || 360
+    const gap = window.innerWidth <= 900 ? 16 : 24
+    slider.scrollTo({
+      left: index * (cardWidth + gap),
+      behavior: 'auto'
+    })
+  }
+}
+
+const handleScroll = () => {
+  const slider = document.querySelector('.proof-slider')
+  if (slider) {
+    const cardWidth = slider.querySelector('.proof-card')?.offsetWidth || 360
+    const gap = window.innerWidth <= 900 ? 16 : 24
+    const scrollLeft = slider.scrollLeft
+    const newIndex = Math.round(scrollLeft / (cardWidth + gap))
+    if (newIndex !== currentSlide.value && newIndex >= 0 && newIndex < proofs.length) {
+      currentSlide.value = newIndex
+    }
+  }
+}
+
+onMounted(() => {
+  const slider = document.querySelector('.proof-slider')
+  if (slider) {
+    slider.addEventListener('scroll', handleScroll)
+  }
+})
 </script>
 
 <style scoped>
 .social-proof {
   padding: 80px 0;
-  background: linear-gradient(180deg, #f8f9fc 0%, #fff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 .section-header {
@@ -92,19 +142,27 @@ const proofs = [
   color: var(--text-secondary);
 }
 
-.proof-cards {
+.proof-slider-wrapper {
+  position: relative;
+}
+
+.proof-slider {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  padding-top: 20px;
+  background: white;
 }
 
 .proof-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
-}
+    width: calc(100vw - 60px);
+    max-width: 340px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    overflow: visible;
+    box-shadow: var(--shadow-md);
+    border-radius: 20px;
+  }
 
 .proof-card:hover {
   transform: translateY(-4px);
@@ -114,6 +172,8 @@ const proofs = [
 .proof-visual {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   padding: 32px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .comparison {
@@ -195,7 +255,7 @@ const proofs = [
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
   padding: 12px 24px;
   border-radius: 12px;
 }
@@ -212,7 +272,7 @@ const proofs = [
 }
 
 @media (max-width: 1024px) {
-  .proof-cards {
+  .proof-slider {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -220,6 +280,68 @@ const proofs = [
     grid-column: span 2;
     max-width: 400px;
     margin: 0 auto;
+    border-radius: 20px;
+  }
+
+  .proof-card:last-child .proof-visual {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  
+}
+
+@media (max-width: 900px) {
+  .proof-slider-wrapper {
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  
+  .proof-slider {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 20px 10px;
+    gap: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background: white;
+  }
+
+  .proof-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  
+
+  .proof-card .proof-visual {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .slider-dots span {
+    width: 8px;
+    height: 8px;
+    background: #E5E7EB;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .slider-dots span.active {
+    background: var(--primary-color);
+    width: 24px;
+    border-radius: 4px;
   }
 }
 
@@ -236,13 +358,17 @@ const proofs = [
     font-size: 16px;
   }
 
-  .proof-cards {
-    grid-template-columns: 1fr;
+  .proof-slider {
+    padding: 20px 10px;
+    gap: 16px;
+    background: white;
   }
 
-  .proof-card:last-child {
-    grid-column: span 1;
-    max-width: 100%;
+  
+
+  .proof-card .proof-visual {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
 
   .comparison {

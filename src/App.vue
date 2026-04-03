@@ -7,6 +7,7 @@
       <ImageSlider />
       <ProductSection />
       <SocialProof />
+      <SceneVideos />
       <PricingSection />
       <FAQSection />
     </main>
@@ -29,6 +30,7 @@ import PainAndSolution from './components/PainAndSolution.vue'
 import ProductSection from './components/ProductSection.vue'
 import ImageSlider from './components/ImageSlider.vue'
 import SocialProof from './components/SocialProof.vue'
+import SceneVideos from './components/SceneVideos.vue'
 import FAQSection from './components/FAQSection.vue'
 import PricingSection from './components/PricingSection.vue'
 

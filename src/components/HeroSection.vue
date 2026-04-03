@@ -50,43 +50,23 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="chat-preview">
-          <div class="chat-header">
-            <div class="chat-avatar">
-              <el-icon><User /></el-icon>
-            </div>
-            <div class="chat-info">
-              <span class="chat-name">三少的助手</span>
-              <span class="chat-status">企微数字员工</span>
-            </div>
-          </div>
-          <div class="chat-messages">
-            <div class="message bot">
-              <p>早上好！今天的早报已生成：</p>
-              <div class="message-card">
-                <div class="card-header">
-                  <el-icon><Document /></el-icon>
-                  <span>今日工作摘要</span>
-                </div>
-                <ul>
-                  <li>📊 昨日数据：新增客户 23 家</li>
-                  <li>📋 待办事项：3 项</li>
-                  <li>⏰ 会议提醒：14:00 周例会</li>
-                </ul>
-              </div>
-            </div>
-            <div class="message user">
-              <p>帮我整理上周的周报</p>
-            </div>
-            <div class="message bot">
-              <p>已整理完成！这是上周周报要点：</p>
-              <div class="message-card">
-                <ul>
-                  <li>✅ 业绩目标达成 112%</li>
-                  <li>✅ 客户满意度 98%</li>
-                  <li>📈 环比增长 15%</li>
-                </ul>
-              </div>
+        <div class="hero-video-wrapper">
+          <video
+            ref="heroVideoRef"
+            class="hero-video"
+            :poster="videoPoster"
+            @loadedmetadata="captureFirstFrame"
+            @canplay="captureFirstFrame"
+            @play="isPlaying = true"
+            @pause="isPlaying = false"
+            @click="togglePlay"
+          >
+            <source src="/video/video1.mp4" type="video/mp4" />
+            您的浏览器不支持视频播放
+          </video>
+          <div class="hero-video-overlay" v-if="!isPlaying" @click="togglePlay">
+            <div class="play-button">
+              <el-icon :size="56"><VideoPlay /></el-icon>
             </div>
           </div>
         </div>
@@ -104,7 +84,36 @@
 </template>
 
 <script setup>
-import { Star, Promotion, VideoPlay, User, Document, SuccessFilled, Clock } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { Star, Promotion, VideoPlay, SuccessFilled, Clock } from '@element-plus/icons-vue'
+
+const heroVideoRef = ref(null)
+const isPlaying = ref(false)
+const videoPoster = ref('')
+
+const captureFirstFrame = () => {
+  if (!heroVideoRef.value || videoPoster.value) return
+  
+  const video = heroVideoRef.value
+  if (video.readyState >= 2) {
+    const canvas = document.createElement('canvas')
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    videoPoster.value = canvas.toDataURL('image/jpeg', 0.8)
+  }
+}
+
+const togglePlay = () => {
+  if (!heroVideoRef.value) return
+  
+  if (isPlaying.value) {
+    heroVideoRef.value.pause()
+  } else {
+    heroVideoRef.value.play()
+  }
+}
 
 const goToWechat = () => {
   window.open('https://work.weixin.qq.com/kfid/your-value', '_blank')
@@ -119,7 +128,7 @@ const goToWechat = () => {
   padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #f0f7ff 0%, #fff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 .hero-bg {
@@ -280,100 +289,45 @@ const goToWechat = () => {
   position: relative;
 }
 
-.chat-preview {
-  background: white;
+.hero-video-wrapper {
+  position: relative;
   border-radius: 16px;
-  box-shadow: var(--shadow-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 16 / 9;
+  background: #000;
 }
 
-.chat-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%);
-  color: white;
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.chat-avatar {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
-.chat-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-name {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.chat-status {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-.chat-messages {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.message {
-  max-width: 85%;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.message.bot {
-  align-self: flex-start;
-  background: #f5f7fa;
-  border-bottom-left-radius: 4px;
-}
-
-.message.user {
-  align-self: flex-end;
-  background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%);
-  color: white;
-  border-bottom-right-radius: 4px;
-}
-
-.message-card {
-  background: white;
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 8px;
-  box-shadow: var(--shadow-sm);
-}
-
-.message-card .card-header {
+.hero-video-overlay .play-button {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-gradient);
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--primary-color);
+  justify-content: center;
+  color: white;
+  transition: transform 0.3s ease;
 }
 
-.message-card ul {
-  list-style: none;
-}
-
-.message-card li {
-  padding: 4px 0;
-  font-size: 13px;
+.hero-video-overlay .play-button:hover {
+  transform: scale(1.1);
 }
 
 .floating-card {

@@ -104,7 +104,7 @@ const plans = [
 <style scoped>
 .pricing {
   padding: 80px 0;
-  background: linear-gradient(180deg, #fff 0%, #f0f7ff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 .section-header {

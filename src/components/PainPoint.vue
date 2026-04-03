@@ -51,7 +51,7 @@ const painPoints = [
 <style scoped>
 .pain-point {
   padding: 80px 0;
-  background: #fff;
+  background: #ffffff;
 }
 
 .section-header {
@@ -77,7 +77,7 @@ const painPoints = [
 }
 
 .pain-card {
-  background: linear-gradient(145deg, #f8f9fc 0%, #fff 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #ffffff 100%);
   border: 1px solid #e8eaf0;
   border-radius: 16px;
   padding: 32px;
@@ -123,7 +123,7 @@ const painPoints = [
 }
 
 .pain-tags .el-tag {
-  background: #f0f2f5;
+  background: #ffffff;
   border: none;
   border-radius: 6px;
 }

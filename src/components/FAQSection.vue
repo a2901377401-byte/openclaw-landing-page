@@ -73,7 +73,7 @@ const faqs = [
 <style scoped>
 .faq {
   padding: 80px 0;
-  background: #fff;
+  background: #ffffff;
 }
 
 .section-header {
@@ -115,7 +115,7 @@ const faqs = [
 .faq-list :deep(.el-collapse-item__header) {
   height: auto;
   padding: 20px 24px;
-  background: #f8f9fc;
+  background: #ffffff;
   border: none;
   font-size: 16px;
   font-weight: 600;

@@ -327,7 +327,7 @@ onUnmounted(() => {
 /* 样式保持不变，稍微增加了对隐藏溢出的控制 */
 .slider-section {
   padding: 60px 0;
-  background: #fff;
+  background: #ffffff;
 }
 
 .slider-wrapper {
