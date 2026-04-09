@@ -1,14 +1,15 @@
 <template>
   <header class="header" :class="{ scrolled: isScrolled }">
     <div class="header-container">
-      <div class="logo" @click="scrollToTop">
+      <div class="logo" @click="handleLogoClick">
         <img src="/logo2.png" alt="Openclaw" class="logo-img" />
       </div>
       <nav class="nav" :class="{ active: mobileMenuOpen }">
-        <a href="#features" class="nav-link">产品服务</a>
-        <a href="#cases" class="nav-link">客户案例</a>
-        <a href="#pricing" class="nav-link">价格方案</a>
-        <a href="#faq" class="nav-link">常见问题</a>
+        <a href="#features" class="nav-link" @click="handleNavClick">产品服务</a>
+        <a href="#cases" class="nav-link" @click="handleNavClick">客户案例</a>
+        <a href="#pricing" class="nav-link" @click="handleNavClick">价格方案</a>
+        <a href="#faq" class="nav-link" @click="handleNavClick">常见问题</a>
+        <a class="nav-link knowledge-link" @click="goToKnowledge">知识库</a>
         <el-button type="primary" class="cta-btn" @click="goToWechat">立即咨询</el-button>
       </nav>
       <button class="mobile-menu-btn" @click="mobileMenuOpen = !mobileMenuOpen">
@@ -20,7 +21,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Promotion, Fold, Expand } from '@element-plus/icons-vue'
+import { Fold, Expand } from '@element-plus/icons-vue'
+
+const emit = defineEmits(['navigate'])
 
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
@@ -33,8 +36,18 @@ const goToWechat = () => {
   window.open('https://work.weixin.qq.com/kfid/your-value', '_blank')
 }
 
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+const handleLogoClick = () => {
+  emit('navigate', 'home')
+  mobileMenuOpen.value = false
+}
+
+const handleNavClick = () => {
+  mobileMenuOpen.value = false
+}
+
+const goToKnowledge = () => {
+  emit('navigate', 'knowledge')
+  mobileMenuOpen.value = false
 }
 
 onMounted(() => {
@@ -103,6 +116,7 @@ onUnmounted(() => {
   text-decoration: none;
   transition: var(--transition);
   position: relative;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -122,6 +136,11 @@ onUnmounted(() => {
 
 .nav-link:hover::after {
   width: 100%;
+}
+
+.knowledge-link {
+  color: var(--primary-color);
+  font-weight: 500;
 }
 
 .cta-btn {

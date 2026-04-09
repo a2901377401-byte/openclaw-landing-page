@@ -47,7 +47,7 @@ const faqs = [
     icon: Warning,
     question: '怕不会装？',
     answer: '提供可视化面板与一键部署包，小白也能轻松上手。',
-    points: ['可视化管理后台', '一键部署脚本', '7×24 小时技术支持']
+    points: ['可视化管理后台', '7×12 小时技术支持']
   },
   {
     icon: Lock,
@@ -58,8 +58,8 @@ const faqs = [
   {
     icon: Key,
     question: '怕隐私泄露？',
-    answer: '支持本地执行与私有化沙盒部署，数据不出网。',
-    points: ['100% 本地部署', '私有化知识库', '数据不出网络']
+    answer: '支持本地执行与私有化沙盒部署，数据不出域。',
+    points: ['100% 本地部署', '私有化知识库', '数据不出域']
   },
   {
     icon: CircleCheck,

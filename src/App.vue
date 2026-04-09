@@ -6,6 +6,7 @@
       <PainAndSolution />
       <ImageSlider />
       <ProductSection />
+      <KnowledgeBase />
       <SocialProof />
       <SceneVideos />
       <PricingSection />
@@ -29,6 +30,7 @@ import HeroSection from './components/HeroSection.vue'
 import PainAndSolution from './components/PainAndSolution.vue'
 import ProductSection from './components/ProductSection.vue'
 import ImageSlider from './components/ImageSlider.vue'
+import KnowledgeBase from './components/KnowledgeBase.vue'
 import SocialProof from './components/SocialProof.vue'
 import SceneVideos from './components/SceneVideos.vue'
 import FAQSection from './components/FAQSection.vue'

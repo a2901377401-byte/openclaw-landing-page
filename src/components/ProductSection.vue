@@ -161,7 +161,6 @@ onMounted(() => {
 
 .product-slider-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
 .product-slider {

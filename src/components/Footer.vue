@@ -10,50 +10,55 @@
             让 AI 成为你的数字员工<br>
             今晚就拥有能干的 AI 同事
           </p>
+          <div class="company-info">
+            <p class="company-name">广东仨藏</p>
+          </div>
         </div>
-        <div class="footer-links">
-          <div class="link-group">
-            <h4>产品服务</h4>
-            <a href="#">数字员工库</a>
-            <a href="#">内容矩阵</a>
-            <a href="#">本地提效</a>
-            <a href="#">企业定制</a>
+        <div class="footer-contact">
+          <div class="contact-item">
+            <h4>联系我们</h4>
+            <div class="contact-row">
+              <span class="contact-label">电话：</span>
+              <a href="tel:your-phone" class="contact-link">13800000000</a>
+            </div>
+            <div class="contact-row">
+              <span class="contact-label">邮箱：</span>
+              <a href="mailto:your-email" class="contact-link">123@qq.com</a>
+            </div>
           </div>
-          <div class="link-group">
-            <h4>资源</h4>
-            <a href="#">使用文档</a>
-            <a href="#">API 文档</a>
-            <a href="#">案例中心</a>
-          </div>
-          <div class="link-group">
-            <h4>公司</h4>
-            <a href="#">关于我们</a>
-            <a href="#">联系方式</a>
-            <a href="#">隐私政策</a>
+          <div class="wechat-qr">
+            <h4>企业微信</h4>
+            <div class="qr-placeholder">
+              <img src="/wechat-qr.png" alt="企业微信二维码" class="qr-img" @error="handleQrError" />
+            </div>
+            <p class="qr-desc">扫码添加企业微信</p>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Openclaw. All rights reserved.</p>
+        <p>&copy; 2026 广东仨藏有限公司. All rights reserved.</p>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-import { Promotion } from '@element-plus/icons-vue'
+const handleQrError = (e) => {
+  e.target.style.display = 'none'
+  e.target.parentElement.innerHTML = '<span class="qr-placeholder-text">请添加二维码图片</span>'
+}
 </script>
 
 <style scoped>
 .footer {
-  background: linear-gradient(135deg, rgb(238, 120, 185) 0%, rgb(255, 217, 89) 100%);
-  color: #fff;
+  background: rgb(230, 230, 230);
+  color: #333;
   padding: 60px 0 24px;
 }
 
 .footer-content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   margin-bottom: 40px;
 }
@@ -77,45 +82,98 @@ import { Promotion } from '@element-plus/icons-vue'
 }
 
 .footer-desc {
-  color: #999;
+  color: #333;
   font-size: 14px;
   line-height: 1.8;
+  margin-bottom: 20px;
 }
 
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.company-info {
+  margin-top: 24px;
+}
+
+.company-name {
+  color: #333;
+  font-size: 14px;
+}
+
+.footer-contact {
+  display: flex;
   gap: 40px;
+  justify-content: flex-start;
 }
 
-.link-group h4 {
-  font-size: 15px;
+.contact-item h4,
+.wechat-qr h4 {
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #fff;
+  color: #333;
 }
 
-.link-group a {
-  display: block;
-  color: #999;
+.contact-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.contact-label {
+  color: #333;
+  font-size: 14px;
+}
+
+.contact-link {
+  color: #333;
   text-decoration: none;
   font-size: 14px;
-  margin-bottom: 12px;
-  transition: var(--transition);
+  transition: opacity 0.3s;
 }
 
-.link-group a:hover {
-  color: var(--primary-light);
+.contact-link:hover {
+  opacity: 0.6;
+  text-decoration: underline;
+}
+
+.wechat-qr {
+  text-align: center;
+}
+
+.qr-placeholder {
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  overflow: hidden;
+}
+
+.qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.qr-placeholder-text {
+  color: #999;
+  font-size: 12px;
+}
+
+.qr-desc {
+  color: #333;
+  font-size: 13px;
 }
 
 .footer-bottom {
-  border-top: 1px solid #333;
+  border-top: 1px solid #ccc;
   padding-top: 24px;
   text-align: center;
 }
 
 .footer-bottom p {
-  color: #666;
+  color: #333;
   font-size: 13px;
 }
 
@@ -125,15 +183,17 @@ import { Promotion } from '@element-plus/icons-vue'
     gap: 40px;
   }
 
-  .footer-links {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+  .footer-contact {
+    flex-direction: column;
+    gap: 32px;
   }
-}
 
-@media (max-width: 480px) {
-  .footer-links {
-    grid-template-columns: 1fr;
+  .wechat-qr {
+    text-align: left;
+  }
+
+  .qr-placeholder {
+    margin: 0;
   }
 }
 </style>

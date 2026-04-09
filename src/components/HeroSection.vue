@@ -27,10 +27,6 @@
             <el-icon><Promotion /></el-icon>
             立即部署你的第一个数字员工
           </el-button>
-          <!-- <el-button size="large" class="secondary-button">
-            <el-icon><VideoPlay /></el-icon>
-            观看演示
-          </el-button> -->
         </div>
         <div class="hero-stats">
           <div class="stat-item">

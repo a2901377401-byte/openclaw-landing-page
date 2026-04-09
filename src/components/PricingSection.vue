@@ -5,37 +5,47 @@
         <h2 class="section-title">选择你的起步方式</h2>
         <p class="section-subtitle">总有一款适合你</p>
       </div>
-      <div class="pricing-cards">
-        <div 
-          class="pricing-card" 
-          v-for="(plan, index) in plans" 
-          :key="index"
-          :class="{ featured: plan.featured }"
-        >
-          <div class="pricing-badge" v-if="plan.badge">{{ plan.badge }}</div>
-          <div class="pricing-header">
-            <h3 class="plan-name">{{ plan.name }}</h3>
-            <p class="plan-desc">{{ plan.desc }}</p>
-          </div>
-          <div class="pricing-price">
-            <span class="price-currency">¥</span>
-            <span class="price-amount">{{ plan.price }}</span>
-            <span class="price-period" v-if="plan.period">/{{ plan.period }}</span>
-          </div>
-          <ul class="pricing-features">
-            <li v-for="(feature, fIndex) in plan.features" :key="fIndex">
-              <el-icon><Check /></el-icon>
-              <span>{{ feature }}</span>
-            </li>
-          </ul>
-          <el-button 
-            :type="plan.featured ? 'primary' : 'default'" 
-            size="large"
-            class="pricing-btn"
-            @click="goToWechat"
+      <div class="pricing-slider-wrapper">
+        <div class="pricing-slider">
+          <div 
+            class="pricing-card" 
+            v-for="(plan, index) in plans" 
+            :key="index"
+            :class="{ featured: plan.featured }"
           >
-            {{ plan.cta }}
-          </el-button>
+            <div class="pricing-badge" v-if="plan.badge">{{ plan.badge }}</div>
+            <div class="pricing-header">
+              <h3 class="plan-name">{{ plan.name }}</h3>
+              <p class="plan-desc">{{ plan.desc }}</p>
+            </div>
+            <div class="pricing-price">
+              <span class="price-currency">¥</span>
+              <span class="price-amount">{{ plan.price }}</span>
+              <span class="price-period" v-if="plan.period">/{{ plan.period }}</span>
+            </div>
+            <ul class="pricing-features">
+              <li v-for="(feature, fIndex) in plan.features" :key="fIndex">
+                <el-icon><Check /></el-icon>
+                <span>{{ feature }}</span>
+              </li>
+            </ul>
+            <el-button 
+              :type="plan.featured ? 'primary' : 'default'" 
+              size="large"
+              class="pricing-btn"
+              @click="goToWechat"
+            >
+              {{ plan.cta }}
+            </el-button>
+          </div>
+        </div>
+        <div class="slider-dots">
+          <span 
+            v-for="(_, index) in plans" 
+            :key="index"
+            :class="{ active: currentSlide === index }"
+            @click="goToSlide(index)"
+          ></span>
         </div>
       </div>
       <div class="pricing-footer">
@@ -46,6 +56,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { Check } from '@element-plus/icons-vue'
 
 const goToWechat = () => {
@@ -53,6 +64,21 @@ const goToWechat = () => {
 }
 
 const plans = [
+  {
+    name: '体验包',
+    desc: '快速体验',
+    price: '29.9',
+    period: '起',
+    features: [
+      '3 个岗位模板',
+      '基础配置指导',
+      '社群答疑支持',
+      '持续更新'
+    ],
+    cta: '立即购买',
+    badge: '热销第一',
+    featured: true
+  },
   {
     name: '岗位模板包',
     desc: '快速体验成果',
@@ -80,8 +106,7 @@ const plans = [
       '岗位模板持续更新'
     ],
     cta: '立即部署',
-    badge: '热销第一',
-    featured: true
+    featured: false
   },
   {
     name: 'AaaS 系统',
@@ -99,6 +124,45 @@ const plans = [
     featured: false
   }
 ]
+
+const currentSlide = ref(0)
+
+const goToSlide = (index) => {
+  currentSlide.value = index
+  scrollToSlide(index)
+}
+
+const scrollToSlide = (index) => {
+  const slider = document.querySelector('.pricing-slider')
+  if (slider) {
+    const cardWidth = slider.querySelector('.pricing-card')?.offsetWidth || 300
+    const gap = window.innerWidth <= 900 ? 16 : 24
+    slider.scrollTo({
+      left: index * (cardWidth + gap),
+      behavior: 'auto'
+    })
+  }
+}
+
+const handleScroll = () => {
+  const slider = document.querySelector('.pricing-slider')
+  if (slider) {
+    const cardWidth = slider.querySelector('.pricing-card')?.offsetWidth || 300
+    const gap = window.innerWidth <= 900 ? 16 : 24
+    const scrollLeft = slider.scrollLeft
+    const newIndex = Math.round(scrollLeft / (cardWidth + gap))
+    if (newIndex !== currentSlide.value && newIndex >= 0 && newIndex < plans.length) {
+      currentSlide.value = newIndex
+    }
+  }
+}
+
+onMounted(() => {
+  const slider = document.querySelector('.pricing-slider')
+  if (slider) {
+    slider.addEventListener('scroll', handleScroll)
+  }
+})
 </script>
 
 <style scoped>
@@ -123,12 +187,15 @@ const plans = [
   color: var(--text-secondary);
 }
 
-.pricing-cards {
+.pricing-slider-wrapper {
+  position: relative;
+}
+
+.pricing-slider {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+  padding-top: 20px;
 }
 
 .pricing-card {
@@ -139,6 +206,7 @@ const plans = [
   text-align: center;
   position: relative;
   transition: var(--transition);
+  overflow: visible;
 }
 
 .pricing-card:hover {
@@ -267,9 +335,8 @@ const plans = [
 }
 
 @media (max-width: 1024px) {
-  .pricing-cards {
-    grid-template-columns: 1fr;
-    max-width: 400px;
+  .pricing-slider {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .pricing-card.featured {
@@ -278,6 +345,72 @@ const plans = [
 
   .pricing-card.featured:hover {
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 900px) {
+  .pricing-slider-wrapper {
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  
+  .pricing-slider {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 20px 10px;
+    gap: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .pricing-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing-card {
+    width: calc(100vw - 60px);
+    max-width: 340px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    border-radius: 20px;
+  }
+
+  .pricing-card.featured {
+    transform: none;
+  }
+
+  .pricing-card.featured:hover {
+    transform: translateY(-4px);
+  }
+
+  .pricing-card .pricing-badge {
+    border-radius: 20px;
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .slider-dots span {
+    width: 8px;
+    height: 8px;
+    background: #E5E7EB;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .slider-dots span.active {
+    background: var(--primary-color);
+    width: 24px;
+    border-radius: 4px;
   }
 }
 
@@ -294,7 +427,14 @@ const plans = [
     font-size: 16px;
   }
 
+  .pricing-slider {
+    padding: 20px 10px;
+    gap: 16px;
+  }
+
   .pricing-card {
+    width: calc(100vw - 52px);
+    max-width: 320px;
     padding: 32px 24px;
   }
 
