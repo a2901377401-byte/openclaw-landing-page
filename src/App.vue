@@ -2,15 +2,14 @@
   <div class="landing-page">
     <Header />
     <main>
-      <HeroSection />
-      <PainAndSolution />
-      <ImageSlider />
-      <ProductSection />
-      <KnowledgeBase />
-      <SocialProof />
-      <SceneVideos />
-      <PricingSection />
-      <FAQSection />
+      <HeroSection class="section-bg-white" />
+      <PainAndSolution class="section-bg-warm" />
+      <ProductSection class="section-bg-cool" />
+      <KnowledgeBase class="section-bg-slate" />
+      <SocialProof class="section-bg-mist" />
+      <SceneVideos class="section-bg-warm" />
+      <PricingSection class="section-bg-light" />
+      <FAQSection class="section-bg-white" />
     </main>
     <Footer />
     <transition name="fade">
@@ -29,7 +28,6 @@ import Footer from './components/Footer.vue'
 import HeroSection from './components/HeroSection.vue'
 import PainAndSolution from './components/PainAndSolution.vue'
 import ProductSection from './components/ProductSection.vue'
-import ImageSlider from './components/ImageSlider.vue'
 import KnowledgeBase from './components/KnowledgeBase.vue'
 import SocialProof from './components/SocialProof.vue'
 import SceneVideos from './components/SceneVideos.vue'
@@ -59,6 +57,31 @@ onUnmounted(() => {
 .landing-page {
   min-height: 100vh;
   position: relative;
+}
+
+/* 商务风格背景色系统 - 6色交替 */
+.section-bg-white {
+  background: #FFFFFF;
+}
+
+.section-bg-warm {
+  background: linear-gradient(180deg, #FFFBF5 0%, #FFF9F0 100%);
+}
+
+.section-bg-cool {
+  background: linear-gradient(180deg, #F5F8FB 0%, #EEF3F8 100%);
+}
+
+.section-bg-slate {
+  background: linear-gradient(180deg, #E9EFF3 0%, #E2E9EE 100%);
+}
+
+.section-bg-mist {
+  background: linear-gradient(180deg, #F0F4F7 0%, #EAEFF4 100%);
+}
+
+.section-bg-light {
+  background: linear-gradient(180deg, #FAFCFE 0%, #F6F9FC 100%);
 }
 
 .back-to-top {

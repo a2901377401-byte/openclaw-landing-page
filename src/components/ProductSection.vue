@@ -7,41 +7,30 @@
       </div>
       <div class="product-slider-wrapper">
         <div class="product-slider">
-          <div 
-            class="product-card" 
-            v-for="(product, index) in products" 
-            :key="index"
-            :class="{ 'featured': product.featured }"
-          >
+          <div class="product-card" v-for="(product, index) in products" :key="index"
+            :class="{ 'featured': product.featured }">
             <div class="product-badge" v-if="product.badge">{{ product.badge }}</div>
             <div class="product-icon">
-              <el-icon :size="28"><component :is="product.icon" /></el-icon>
+              <el-icon :size="28">
+                <component :is="product.icon" />
+              </el-icon>
             </div>
             <h3 class="product-name">{{ product.name }}</h3>
             <p class="product-value">{{ product.value }}</p>
             <div class="product-divider"></div>
             <ul class="product-features">
               <li v-for="(feature, fIndex) in product.features" :key="fIndex">
-                <el-icon><Check /></el-icon>
+                <el-icon>
+                  <Check />
+                </el-icon>
                 <span>{{ feature }}</span>
               </li>
             </ul>
-            <el-button 
-              :type="product.featured ? 'primary' : 'default'" 
-              class="product-btn"
-              @click="goToWechat"
-            >
-              了解更多
-            </el-button>
           </div>
         </div>
         <div class="slider-dots">
-          <span 
-            v-for="(_, index) in products" 
-            :key="index"
-            :class="{ active: currentSlide === index }"
-            @click="goToSlide(index)"
-          ></span>
+          <span v-for="(_, index) in products" :key="index" :class="{ active: currentSlide === index }"
+            @click="goToSlide(index)"></span>
         </div>
       </div>
     </div>
@@ -51,46 +40,52 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { User, Document, Timer, Shop, OfficeBuilding, Check } from '@element-plus/icons-vue'
+import CONTACT_INFO from '../config/contact.js'
 
 const goToWechat = () => {
-  window.open('https://work.weixin.qq.com/kfid/your-value', '_blank')
+  window.location.href = `weixin://dl/addfriend/${CONTACT_INFO.wechat}`
 }
 
 const products = [
   {
     icon: User,
-    name: '岗位式数字员工库',
-    value: '买的不是知识，是装上就能用的数字同事。',
-    features: ['10 个岗位包', '权限/技能/任务模板', '验收标准'],
-    badge: '最受欢迎',
+    name: '职场精英 | 全天候超级助理',
+    headline: '7×24 极速响应，您的专属数字智囊',
+    value: '开箱即用，免去繁琐指令。从常规复盘到深度竞品分析，直达精准交付。',
+    features: ['全场景岗位技能矩阵', '企业级权限与模板管控', '具备自学习进化能力'],
+    badge: '1万+ 人在用',
     featured: true
   },
   {
     icon: Document,
-    name: '内容矩阵流水线',
-    value: '单篇内容 4.5 小时 → 23 分钟，省下时间换产出。',
-    features: ['小红书/抖音模板', '7 天排期生成器', '内容质量检测'],
+    name: '新媒体 | 矩阵增长引擎',
+    headline: '以一当十，重构全域分发效能',
+    value: '单篇内容耗时缩减90%。集成排期、创作与质检的全自动工作流，让您专注流量破局与变现。',
+    features: ['全平台自适应创作模板', '智能周期排期引擎', '爆款因子检测与调优'],
     featured: false
   },
   {
     icon: Timer,
-    name: '本地提效套件',
-    value: '把每周固定加班的 2 小时，压缩成 2 分钟。',
-    features: ['周报生成器', '会议行动项闭环', '资料检索'],
+    name: '个人效能 | 智能敏捷副驾',
+    headline: '将2小时繁杂，重构为2分钟极简',
+    value: '智能接管汇报、纪要与资料梳理等机械劳作，释放您的核心专注力与创造力。',
+    features: ['智能汇报一键生成', '核心行动项自动追踪', '多源信息深度结构化'],
     featured: false
   },
   {
     icon: Shop,
-    name: 'AaaS 接单系统',
-    value: '从按小时卖命，升级为按系统卖结果。',
-    features: ['3 个行业 Demo', '报价单模板', '交付清单模板'],
+    name: '一人企业 | 商业运营中枢',
+    headline: '超越时间贩卖，构建自动化商业飞轮',
+    value: '沉淀行业标杆SOP，打通报价与交付闭环。全链路进度自动同步，助您从容拓展业务版图。',
+    features: ['高净值行业标杆 SOP', '全链路商业交付模板', '履约进度无缝协同'],
     featured: false
   },
   {
     icon: OfficeBuilding,
-    name: '企业级定制/托管',
-    value: '让 AI 交付结果，而不是交付聊天。',
-    features: ['企微/飞书接入', '私有化 RAG 知识库', '日志审计'],
+    name: '集团企业 | 数字生产力引擎',
+    headline: '聚焦结果交付，重塑企业级合规劳动力',
+    value: '深度集成主流协同生态，构建私有化知识底座。打造安全、可控、可溯源的专属数字团队。',
+    features: ['企业办公生态深度融合', '私有化 RAG 知识底座', '全链路风控与日志审计'],
     featured: false
   }
 ]
@@ -167,7 +162,7 @@ onMounted(() => {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 24px;
-  padding-top: 20px;
+  width: 110%;
 }
 
 .product-card {
@@ -298,7 +293,7 @@ onMounted(() => {
     margin: 0 -20px;
     padding: 0 20px;
   }
-  
+
   .product-slider {
     display: flex;
     overflow-x: auto;

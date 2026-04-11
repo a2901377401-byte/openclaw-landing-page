@@ -111,7 +111,7 @@ const results = [
 .result-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #e8f4ff 0%, #d4ecff 100%);
+  background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -137,8 +137,8 @@ const results = [
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #e8f8e8 0%, #d4f5d4 100%);
-  color: #67c23a;
+  background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
+  color: #A855F7;
   padding: 10px 20px;
   border-radius: 20px;
   font-size: 14px;

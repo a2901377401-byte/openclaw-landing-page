@@ -337,7 +337,6 @@ onUnmounted(() => {
 
 .image-slider {
   width: 100%;
-  max-width: 800px;
   position: relative;
   border-radius: 20px;
   overflow: hidden;
@@ -346,7 +345,7 @@ onUnmounted(() => {
 }
 
 .image-slider:focus-visible {
-  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(64, 158, 255, 0.5);
+  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(168, 85, 247, 0.5);
 }
 
 .slider-container {

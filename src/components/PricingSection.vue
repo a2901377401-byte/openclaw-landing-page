@@ -18,10 +18,13 @@
               <h3 class="plan-name">{{ plan.name }}</h3>
               <p class="plan-desc">{{ plan.desc }}</p>
             </div>
-            <div class="pricing-price">
-              <span class="price-currency">¥</span>
+            <div class="pricing-price" v-if="plan.price">
               <span class="price-amount">{{ plan.price }}</span>
               <span class="price-period" v-if="plan.period">/{{ plan.period }}</span>
+            </div>
+            <div class="pricing-contact" v-else @click="goToWechat">
+              <el-icon :size="40"><Headset /></el-icon>
+              <span class="contact-text">联系定制</span>
             </div>
             <ul class="pricing-features">
               <li v-for="(feature, fIndex) in plan.features" :key="fIndex">
@@ -29,14 +32,6 @@
                 <span>{{ feature }}</span>
               </li>
             </ul>
-            <el-button 
-              :type="plan.featured ? 'primary' : 'default'" 
-              size="large"
-              class="pricing-btn"
-              @click="goToWechat"
-            >
-              {{ plan.cta }}
-            </el-button>
           </div>
         </div>
         <div class="slider-dots">
@@ -57,72 +52,34 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { Check } from '@element-plus/icons-vue'
+import { Check, Headset } from '@element-plus/icons-vue'
+import CONTACT_INFO from '../config/contact.js'
 
 const goToWechat = () => {
-  window.open('https://work.weixin.qq.com/kfid/your-value', '_blank')
+  window.location.href = `weixin://dl/addfriend/${CONTACT_INFO.wechat}`
 }
 
 const plans = [
   {
     name: '体验包',
     desc: '快速体验',
-    price: '29.9',
+    price: '¥29.9',
     period: '起',
-    features: [
-      '3 个岗位模板',
-      '基础配置指导',
-      '社群答疑支持',
-      '持续更新'
-    ],
-    cta: '立即购买',
     badge: '热销第一',
     featured: true
   },
   {
-    name: '岗位模板包',
+    name: '基础包',
     desc: '快速体验成果',
-    price: '999',
+    price: '¥99.9',
     period: '起',
-    features: [
-      '3 个岗位模板',
-      '基础配置指导',
-      '社群答疑支持',
-      '持续更新'
-    ],
-    cta: '立即购买',
     featured: false
   },
   {
-    name: '数字员工库',
+    name: '定制包',
     desc: '个人/小团队首选',
-    price: '3999',
-    period: '年',
-    features: [
-      '10 个岗位包',
-      '企微/飞书接入',
-      '优先技术支持',
-      '定制化配置',
-      '岗位模板持续更新'
-    ],
-    cta: '立即部署',
     featured: false
   },
-  {
-    name: 'AaaS 系统',
-    desc: '老板和工作室',
-    price: '9999',
-    period: '起',
-    features: [
-      '3 个行业高频 Demo',
-      '报价单/交付清单模板',
-      '专属客服',
-      '一对一培训',
-      '优先新功能体验'
-    ],
-    cta: '联系商务',
-    featured: false
-  }
 ]
 
 const currentSlide = ref(0)
@@ -193,7 +150,7 @@ onMounted(() => {
 
 .pricing-slider {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   padding-top: 20px;
 }
@@ -216,7 +173,7 @@ onMounted(() => {
 
 .pricing-card.featured {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.1);
   transform: scale(1.05);
 }
 
@@ -284,6 +241,34 @@ onMounted(() => {
   margin-left: 4px;
 }
 
+.pricing-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pricing-contact:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.pricing-contact .el-icon {
+  color: #A855F7;
+}
+
+.contact-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #A855F7;
+}
+
 .pricing-features {
   list-style: none;
   text-align: left;
@@ -305,7 +290,7 @@ onMounted(() => {
 }
 
 .pricing-features .el-icon {
-  color: #67c23a;
+  color: #A855F7;
   font-weight: 700;
   font-size: 16px;
 }
@@ -331,7 +316,7 @@ onMounted(() => {
 }
 
 .pricing-footer strong {
-  color: #67c23a;
+  color: #A855F7;
 }
 
 @media (max-width: 1024px) {
@@ -427,10 +412,6 @@ onMounted(() => {
     font-size: 16px;
   }
 
-  .pricing-slider {
-    padding: 20px 10px;
-    gap: 16px;
-  }
 
   .pricing-card {
     width: calc(100vw - 52px);

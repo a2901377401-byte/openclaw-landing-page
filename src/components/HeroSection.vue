@@ -1,10 +1,5 @@
 <template>
   <section class="hero">
-    <div class="hero-bg">
-      <div class="hero-circle circle-1"></div>
-      <div class="hero-circle circle-2"></div>
-      <div class="hero-circle circle-3"></div>
-    </div>
     <div class="container">
       <div class="hero-content">
         <div class="hero-badge">
@@ -12,20 +7,16 @@
           <span>已服务 500+ 企业客户</span>
         </div>
         <h1 class="hero-title">
-          把 Openclaw 卖成<span class="highlight">「数字员工岗位」</span><br>
+          <span class="highlight">「数字员工岗位」</span><br>
           而不是 AI 工具
         </h1>
         <p class="hero-subtitle">
           不讲概念：今天下单，今晚就在企微/飞书里拥有你的 AI 数字员工同事。
         </p>
-        <p class="hero-desc">
-          别再追着 AI 更新跑了。你需要的是把每周 2 小时的搬运工作，<br class="pc-only">
-          压缩成 2 分钟的自动化流程。
-        </p>
         <div class="hero-actions">
           <el-button type="primary" size="large" class="cta-button" @click="goToWechat">
             <el-icon><Promotion /></el-icon>
-            立即部署你的第一个数字员工
+            即刻行动，部署你的首位数字员工
           </el-button>
         </div>
         <div class="hero-stats">
@@ -46,79 +37,24 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="hero-video-wrapper">
-          <video
-            ref="heroVideoRef"
-            class="hero-video"
-            :poster="videoPoster"
-            @loadedmetadata="captureFirstFrame"
-            @canplay="captureFirstFrame"
-            @play="isPlaying = true"
-            @pause="isPlaying = false"
-            @click="togglePlay"
-          >
-            <source src="/video/video1.mp4" type="video/mp4" />
-            您的浏览器不支持视频播放
-          </video>
-          <div class="hero-video-overlay" v-if="!isPlaying" @click="togglePlay">
-            <div class="play-button">
-              <el-icon :size="56"><VideoPlay /></el-icon>
-            </div>
-          </div>
-        </div>
-        <div class="floating-card card-1">
-          <el-icon><SuccessFilled /></el-icon>
-          <span>周报生成完成</span>
-        </div>
-        <div class="floating-card card-2">
-          <el-icon><Clock /></el-icon>
-          <span>耗时 2 分钟</span>
-        </div>
+        <ImageSlider />
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Star, Promotion, VideoPlay, SuccessFilled, Clock } from '@element-plus/icons-vue'
-
-const heroVideoRef = ref(null)
-const isPlaying = ref(false)
-const videoPoster = ref('')
-
-const captureFirstFrame = () => {
-  if (!heroVideoRef.value || videoPoster.value) return
-  
-  const video = heroVideoRef.value
-  if (video.readyState >= 2) {
-    const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
-    const ctx = canvas.getContext('2d')
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    videoPoster.value = canvas.toDataURL('image/jpeg', 0.8)
-  }
-}
-
-const togglePlay = () => {
-  if (!heroVideoRef.value) return
-  
-  if (isPlaying.value) {
-    heroVideoRef.value.pause()
-  } else {
-    heroVideoRef.value.play()
-  }
-}
+import { Star, Promotion } from '@element-plus/icons-vue'
+import ImageSlider from './ImageSlider.vue'
+import CONTACT_INFO from '../config/contact.js'
 
 const goToWechat = () => {
-  window.open('https://work.weixin.qq.com/kfid/your-value', '_blank')
+  window.location.href = `weixin://dl/addfriend/${CONTACT_INFO.wechat}`
 }
 </script>
 
 <style scoped>
 .hero {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   padding: 120px 0 80px;
@@ -142,7 +78,7 @@ const goToWechat = () => {
 .circle-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
   top: -200px;
   right: -100px;
 }
@@ -150,7 +86,7 @@ const goToWechat = () => {
 .circle-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.12) 0%, transparent 70%);
   bottom: -100px;
   left: -100px;
 }
@@ -158,7 +94,7 @@ const goToWechat = () => {
 .circle-3 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -166,8 +102,8 @@ const goToWechat = () => {
 
 .hero .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
   align-items: center;
   position: relative;
   z-index: 1;
@@ -181,7 +117,7 @@ const goToWechat = () => {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0, 102, 255, 0.1);
+  background: rgba(168, 85, 247, 0.1);
   color: var(--primary-color);
   padding: 8px 16px;
   border-radius: 20px;
@@ -285,85 +221,15 @@ const goToWechat = () => {
   position: relative;
 }
 
-.hero-video-wrapper {
-  position: relative;
+.hero-visual :deep(.image-slider) {
   border-radius: 16px;
-  overflow: hidden;
   box-shadow: var(--shadow-lg);
-  aspect-ratio: 16 / 9;
-  background: #000;
-}
-
-.hero-video {
+  max-width: none !important;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
-.hero-video-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-.hero-video-overlay .play-button {
-  width: 80px;
-  height: 80px;
-  background: var(--bg-gradient);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: transform 0.3s ease;
-}
-
-.hero-video-overlay .play-button:hover {
-  transform: scale(1.1);
-}
-
-.floating-card {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: white;
-  padding: 12px 20px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  font-size: 14px;
-  font-weight: 500;
-  animation: float 3s ease-in-out infinite;
-}
-
-.floating-card .el-icon {
-  font-size: 18px;
-}
-
-.card-1 {
-  top: 20%;
-  right: -20px;
-  color: #67c23a;
-}
-
-.card-2 {
-  bottom: 20%;
-  left: -20px;
-  color: var(--primary-color);
-  animation-delay: 1.5s;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.hero-visual :deep(.slider-container) {
+  overflow: visible;
 }
 
 @media (max-width: 1024px) {

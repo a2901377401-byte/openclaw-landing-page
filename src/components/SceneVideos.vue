@@ -1,7 +1,7 @@
 <template>
   <section class="scene-videos">
     <div class="scene-header">
-      <h2 class="scene-title">看不同人群如何使用 Openclaw</h2>
+      <h2 class="scene-title">主要服务对象的业务输出</h2>
     </div>
     <div class="container">
       <div class="scene-nav">
@@ -19,7 +19,7 @@
       
       <div class="scene-content">
         <div class="content-section">
-          <h3 class="section-label">Agents</h3>
+          <h3 class="section-label">AI数字帮手</h3>
           <div class="cards-grid">
             <div class="card-item" v-for="(agent, index) in currentAgents" :key="'agent-' + index">
               <div class="card-name">{{ agent.name }}</div>
@@ -32,7 +32,7 @@
         </div>
         
         <div class="content-section">
-          <h3 class="section-label">Skills</h3>
+          <h3 class="section-label">魔法棒</h3>
           <div class="cards-grid skills-grid">
             <div class="card-item skill-card" v-for="(skill, index) in currentSkills" :key="'skill-' + index">
               <div class="card-name">{{ skill.name }}</div>
@@ -207,13 +207,13 @@ const switchCategory = (id) => {
 }
 
 .scene-header {
-  background: var(--bg-gradient);
+  background: var(--bg-gradient-light);
   padding: 24px 0;
   text-align: center;
 }
 
 .scene-title {
-  color: white;
+  color: #374151;
   font-size: 24px;
   font-weight: 600;
 }
@@ -401,55 +401,98 @@ const switchCategory = (id) => {
 }
 
 @media (max-width: 768px) {
+  .scene-videos {
+    padding: 20px 0;
+  }
+
+  .scene-header {
+    padding: 20px 0;
+  }
+
   .scene-title {
     font-size: 18px;
+    padding: 0 16px;
   }
 
   .scene-nav {
-    gap: 16px;
-    padding: 24px 0;
+    gap: 12px;
+    padding: 20px 16px;
+    overflow-x: auto;
+    justify-content: flex-start;
   }
 
   .nav-btn .el-icon {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
   }
 
   .nav-label {
-    font-size: 12px;
+    font-size: 11px;
+  }
+
+  .scene-content {
+    padding: 0 16px;
+  }
+
+  .section-label {
+    font-size: 16px;
+    margin-bottom: 12px;
   }
 
   .cards-grid,
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .card-item {
-    padding: 12px;
+    padding: 10px;
   }
 
   .card-name {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .card-desc {
-    font-size: 11px;
+    font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .more-card .more-dots {
+    font-size: 18px;
   }
 
   .scene-dots {
-    margin-top: 24px;
-    padding-bottom: 24px;
+    margin-top: 16px;
+    padding: 0 0 20px 0;
   }
 }
 
-.container{
-  height: 800px;
-}
 @media (max-width: 480px) {
   .cards-grid,
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .card-item {
+    padding: 8px;
+  }
+
+  .card-name {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .card-desc {
+    font-size: 9px;
+  }
+
+  .more-card .more-dots {
+    font-size: 14px;
   }
 }
 </style>

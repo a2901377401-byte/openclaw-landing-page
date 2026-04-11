@@ -80,41 +80,87 @@ const results = [
 <style scoped>
 .merged-section {
   padding: 80px 0;
-  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 .split-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 40px;
 }
 
 .column-title {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 32px;
-  color: var(--text-primary);
+  margin-bottom: 28px;
+  color: white;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .pain-column {
-  border-right: 1px solid #e8eaf0;
-  padding-right: 60px;
+  position: relative;
+  padding: 32px;
+  background-image: url('/痛点.png');
+  background-size: cover;
+  background-position: right;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.pain-column::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(60, 30, 30, 0.6) 0%, rgba(40, 15, 15, 0.8) 100%);
+  z-index: 0;
 }
 
 .result-column {
-  padding-left: 0;
+  position: relative;
+  padding: 32px;
+  background-image: url('/结果.png');
+  background-size: cover;
+  background-position: right;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.result-column::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(25, 45, 65, 0.6) 0%, rgba(15, 35, 55, 0.8) 100%);
+  z-index: 0;
+}
+
+.pain-column > *,
+.result-column > * {
+  position: relative;
+  z-index: 1;
 }
 
 .pain-list,
 .result-list {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .pain-item {
   display: flex;
+  align-items: flex-start;
   gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.pain-item:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
 }
 
 .pain-icon {
@@ -127,62 +173,77 @@ const results = [
   justify-content: center;
   color: white;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 .pain-content h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--text-primary);
+  margin-bottom: 6px;
+  color: #ffffff;
 }
 
 .pain-content p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
 }
 
 .result-item {
   display: flex;
+  align-items: flex-start;
   gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.result-item:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
 }
 
 .result-number {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   background: var(--bg-gradient);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 15px;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
 }
 
 .result-content h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--text-primary);
+  margin-bottom: 6px;
+  color: #ffffff;
 }
 
 .result-content p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  margin-bottom: 10px;
 }
 
 .result-check {
   display: inline-block;
-  background: linear-gradient(135deg, #e8f8e8 0%, #d4f5d4 100%);
-  color: #67c23a;
-  padding: 6px 16px;
-  border-radius: 16px;
+  background: linear-gradient(135deg, #A855F7 0%, #C084FC 100%);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 20px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -192,24 +253,42 @@ const results = [
 
   .split-layout {
     grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .pain-column {
-    border-right: none;
-    padding-right: 0;
-    border-bottom: 1px solid #e8eaf0;
-    padding-bottom: 48px;
+    gap: 32px;
   }
 
   .column-title {
     font-size: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+  }
+
+  .pain-column,
+  .result-column {
+    padding: 24px 20px;
   }
 
   .pain-list,
   .result-list {
-    gap: 24px;
+    gap: 16px;
+  }
+
+  .pain-item,
+  .result-item {
+    padding: 16px;
+  }
+
+  .pain-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .pain-content h3,
+  .result-content h3 {
+    font-size: 15px;
+  }
+
+  .pain-content p,
+  .result-content p {
+    font-size: 12px;
   }
 }
 </style>

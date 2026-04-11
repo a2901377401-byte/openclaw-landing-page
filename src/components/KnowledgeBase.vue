@@ -10,7 +10,9 @@
           <div class="feature-list">
             <div class="feature-item" v-for="(feature, index) in features" :key="index">
               <div class="feature-icon">
-                <el-icon :size="24"><component :is="feature.icon" /></el-icon>
+                <el-icon :size="24">
+                  <component :is="feature.icon" />
+                </el-icon>
               </div>
               <div class="feature-info">
                 <h4>{{ feature.title }}</h4>
@@ -22,33 +24,36 @@
         <div class="knowledge-right">
           <div class="demo-card">
             <div class="demo-header">
-              <span class="demo-title">AI 知识库问答</span>
-              <span class="demo-badge">实时演示</span>
+              <span class="demo-title">超级个体数字分身</span>
             </div>
             <div class="demo-chat">
               <div class="chat-message user">
-                <div class="message-content">公司的请假流程是什么？</div>
+                <div class="message-content">调取上个月关于『AI 创作者经济』的调研结论，并帮我拟定一份给新客户的咨询方案大纲。</div>
               </div>
               <div class="chat-message ai">
                 <div class="message-content">
                   <div class="ai-source">
-                    <el-icon><Document /></el-icon>
-                    <span>来源：员工手册 v3.2</span>
+                    <el-icon>
+                      <Document />
+                    </el-icon>
+                    <span>来源：Obsidian 灵感笔记 / 行业洞察.md</span>
                   </div>
-                  <p>根据公司规定，请假流程如下：</p>
+                  <p>已为您提取核心洞察，咨询方案大纲已生成：</p>
                   <ol>
-                    <li>提前 3 天在 OA 系统提交请假申请</li>
-                    <li>直属领导审批（1-3 天）</li>
-                    <li>部门负责人审批（3 天以上）</li>
-                    <li>HR 备案确认</li>
+                    <li><strong>破局切入：</strong>避开底层模型内卷，聚焦解决垂直场景的“最后一公里”痛点。</li>
+                    <li><strong>产品飞轮：</strong>利用“微服务+自动化API”构建轻量化护城河，实现睡后收入。</li>
+                    <li><strong>高定体验：</strong>在 UI/UX 层面拉开差距，用极简主义设计提升客单价与品牌溢价。</li>
+                    <li><strong>交付物规划：</strong>包含趋势研报、SaaS 架构蓝图及 MVP 上线时间表。</li>
                   </ol>
                 </div>
               </div>
             </div>
             <div class="demo-input">
-              <el-input placeholder="输入您的问题..." disabled>
+              <el-input placeholder="与您的第二大脑对话..." disabled>
                 <template #suffix>
-                  <el-icon class="input-icon"><Promotion /></el-icon>
+                  <el-icon class="input-icon">
+                    <Promotion />
+                  </el-icon>
                 </template>
               </el-input>
             </div>
@@ -59,7 +64,9 @@
         <h3 class="sources-title">支持多种数据源接入</h3>
         <div class="sources-grid">
           <div class="source-item" v-for="(source, index) in sources" :key="index">
-            <el-icon :size="32"><component :is="source.icon" /></el-icon>
+            <el-icon :size="32">
+              <component :is="source.icon" />
+            </el-icon>
             <span>{{ source.name }}</span>
           </div>
         </div>
@@ -74,31 +81,31 @@ import { Document, Folder, Connection, Search, Promotion, Files, Link, ChatDotRo
 const features = [
   {
     icon: Document,
-    title: '智能文档解析',
-    desc: '自动解析 PDF、Word、Excel 等格式，提取关键信息'
+    title: '认知资产萃取',
+    desc: '无视排版与格式壁垒，将碎片化的图文、PDF、研报瞬间转化为你的「第二大脑」养料。'
   },
   {
     icon: Search,
-    title: '语义检索',
-    desc: '基于向量检索，精准匹配用户问题与知识内容'
+    title: '直觉式语义检索',
+    desc: '超越传统关键字。基于深度神经网络的向量引擎，让稍纵即逝的灵感与记忆在毫秒间精准回溯。'
   },
   {
     icon: Connection,
-    title: '多源整合',
-    desc: '支持网页、数据库、API 等多种数据源接入'
+    title: '全栖信息接管',
+    desc: '挂载网页、API 与各类生产力工具，为你构建极简且高效的单人商业智能中枢。'
   },
   {
     icon: Folder,
-    title: '权限管理',
-    desc: '细粒度权限控制，保障企业数据安全'
+    title: '绝对数据主权',
+    desc: '私有沙箱隔离，以最高标准捍卫独立创作者与超级个体的核心商业机密。'
   }
 ]
 
 const sources = [
-  { icon: Files, name: '本地文档' },
-  { icon: Link, name: '网页链接' },
-  { icon: ChatDotRound, name: '企微/飞书' },
-  { icon: DataAnalysis, name: '数据库' }
+  { icon: Files, name: '本地数字资产' },
+  { icon: Link, name: '全网信息流' },
+  { icon: ChatDotRound, name: '生产力平台 (Notion等)' },
+  { icon: DataAnalysis, name: '私有云数据库' }
 ]
 </script>
 
@@ -157,7 +164,7 @@ const sources = [
 .feature-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #e8f4fd 0%, #d4e9fc 100%);
+  background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -191,26 +198,25 @@ const sources = [
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #FEF3C7 0%, #DBEAFE 100%);
 }
 
 .demo-title {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: #374151;
 }
 
 .demo-badge {
   font-size: 12px;
-  color: #67c23a;
-  background: rgba(103, 194, 58, 0.1);
+  color: #A855F7;
+  background: rgba(168, 85, 247, 0.1);
   padding: 4px 10px;
   border-radius: 12px;
 }
 
 .demo-chat {
   padding: 20px;
-  max-height: 300px;
   overflow-y: auto;
 }
 
@@ -246,7 +252,7 @@ const sources = [
   color: var(--primary-color);
   margin-bottom: 10px;
   padding: 6px 10px;
-  background: rgba(0, 102, 255, 0.1);
+  background: rgba(168, 85, 247, 0.1);
   border-radius: 6px;
   width: fit-content;
 }
