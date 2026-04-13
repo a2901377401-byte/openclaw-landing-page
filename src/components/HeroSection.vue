@@ -49,7 +49,7 @@ import ImageSlider from './ImageSlider.vue'
 import CONTACT_INFO from '../config/contact.js'
 
 const goToWechat = () => {
-  window.location.href = `weixin://dl/addfriend/${CONTACT_INFO.wechat}`
+  window.open('https://work.weixin.qq.com/ca/cawcde427f39be25db', '_blank')
 }
 </script>
 

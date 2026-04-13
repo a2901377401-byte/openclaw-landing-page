@@ -36,33 +36,23 @@
                 :key="index"
                 role="group"
                 :aria-roledescription="`第 ${getRealIndex(index) + 1} 个案例，共 ${proofs.length} 个`"
-                :style="{ backgroundImage: proof.bgImage ? `url(${proof.bgImage})` : 'none' }"
               >
                 <div class="proof-content">
-                  <div class="proof-card-content">
+                  <!-- 左侧图片区域 -->
+                  <div class="proof-image-section">
+                    <img :src="'/' + proof.bgImage" :alt="proof.title" class="proof-image" />
+                  </div>
+                  
+                  <!-- 右侧文字区域 -->
+                  <div class="proof-info-section">
                     <div class="proof-header">
                       <h3 class="proof-title">{{ proof.title }}</h3>
                       <p class="proof-desc">{{ proof.desc }}</p>
                     </div>
-                    <div class="proof-body">
-                      <div class="proof-visual">
-                        <div class="comparison">
-                          <div class="before">
-                            <span class="label">Before</span>
-                            <span class="time">{{ proof.before }}</span>
-                          </div>
-                          <div class="arrow">
-                            <el-icon><Right /></el-icon>
-                          </div>
-                          <div class="after">
-                            <span class="label">After</span>
-                            <span class="time highlight">{{ proof.after }}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="proof-stat">
-                        <span class="stat-value">{{ proof.improvement }}</span>
-                        <span class="stat-label">效率提升</span>
+                    <div class="proof-features">
+                      <div class="feature-item" v-for="(feature, fIndex) in proof.features" :key="fIndex">
+                        <el-icon class="feature-icon"><Check /></el-icon>
+                        <span>{{ feature }}</span>
                       </div>
                     </div>
                   </div>
@@ -107,36 +97,70 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
-import { Document, Timer, Cpu, Right, ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
+import { Document, Timer, Cpu, Check, ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
 
 const proofs = [
+  {
+    icon: Cpu,
+    title: 'AI驱动的工厂合规智检系统',
+    desc: '把专业安全员放进每个工人的口袋：只需拍照，即可完成智能隐患排查与报告生成',
+    features: [
+      '🚀 全员合规：无需专业背景，一线员工即可精准识别安全隐患',
+      '⏱️ 即时预警：拍下即分析，AI实时提醒并引导解决问题',
+      '📜 一键报告：检查完成即生成合规报告，节省90%以上的时间',
+      '💼 成本优化：大幅减少人力和时间成本，显著提升检查频率'
+    ],
+    bgImage: '安全助手.jpg'
+  },
+  {
+    icon: Cpu,
+    title: 'AI 加油站智慧安全排查系统',
+    desc: 'AI 识图监测，智能推送隐患，助力安全合规，省时省力',
+    features: [
+      '🛡️ 24/7 实时监测',
+      '🔍 智能隐患识别',
+      '📱 即时手机推送',
+      '✅ 减少人工巡检'
+    ],
+    bgImage: '消防助手.jpg'
+  },
   {
     icon: Document,
     title: '自媒体案例',
     desc: '单篇笔记耗时从 4.5 小时降至 23 分钟',
-    before: '4.5 小时',
-    after: '23 分钟',
-    improvement: '92%',
+    features: [
+      '全平台内容一键生成',
+      '智能选题与热点追踪',
+      '自动排版与发布',
+      '效率提升 92%'
+    ],
     bgImage: '自媒体案例.jpg'
   },
   {
     icon: Timer,
     title: '职场案例',
     desc: '周报整理从 120 分钟降至 2 分钟',
-    before: '120 分钟',
-    after: '2 分钟',
-    improvement: '98%',
+    features: [
+      '智能会议纪要生成',
+      '自动工作总结',
+      '数据可视化报表',
+      '效率提升 98%'
+    ],
     bgImage: '职场案例.jpg'
   },
   {
     icon: Cpu,
     title: '企业案例',
     desc: 'IT 运维响应从 30 分钟降至 3 分钟',
-    before: '30 分钟',
-    after: '3 分钟',
-    improvement: '90%',
+    features: [
+      '智能故障诊断',
+      '自动化运维流程',
+      '实时监控预警',
+      '效率提升 90%'
+    ],
     bgImage: '企业案例.jpg'
-  }
+  },
+  
 ]
 
 const realIndex = ref(0)
@@ -341,6 +365,13 @@ onUnmounted(() => {
 <style scoped>
 .social-proof {
   padding: 80px 0;
+  background: #f9fafb;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .section-header {
@@ -352,40 +383,45 @@ onUnmounted(() => {
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 12px;
+  color: #1a1a1a;
 }
 
 .section-subtitle {
   font-size: 18px;
-  color: var(--text-secondary);
+  color: #6b7280;
 }
 
 .carousel-wrapper {
   position: relative;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .proof-carousel {
   width: 100%;
   position: relative;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: visible;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   outline: none;
 }
 
 .proof-carousel:focus-visible {
-  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(168, 85, 247, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 3px rgba(168, 85, 247, 0.5);
 }
 
 .carousel-viewport {
   width: 100%;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 24px;
   cursor: grab;
   background: white;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.carousel-viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .carousel-viewport:active {
@@ -398,140 +434,107 @@ onUnmounted(() => {
 }
 
 .proof-card {
-  min-width: 100%;
+  max-width: 100%;
   flex-shrink: 0;
   user-select: none;
   -webkit-user-drag: none;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: white;
   overflow: hidden;
+  border-radius: 24px;
 }
 
 .proof-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 左右各占一半 */
+  min-height: 560px;
+  width: 100%;
+}
+
+.proof-image-section {
   position: relative;
-  z-index: 2;
-  padding: 60px 48px;
+  overflow: hidden;
+  background: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 480px;
+  padding: 0;
 }
 
-.proof-card-content {
-  width: 60%;
-  max-width: 720px;
+.proof-image {
+  width: auto;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+}
+
+.proof-info-section {
+  padding: 56px 22px;
+  height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  border-left: 1px solid #e5e7eb;
 }
 
 .proof-header {
   margin-bottom: 32px;
-  text-align: center;
 }
 
 .proof-title {
   font-size: 26px;
   font-weight: 700;
-  margin: 0 0 10px 0;
-  color: #7c3aed;
+  margin: 0 0 14px 0;
+  color: #1a1a1a;
+  line-height: 1.3;
 }
 
 .proof-desc {
-  font-size: 15px;
-  color: #a78bfa;
-  line-height: 1.6;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.7;
   margin: 0;
 }
 
-.proof-body {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-}
-
-.proof-visual {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  padding: 28px 24px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.comparison {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-}
-
-.before,
-.after {
+.proof-features {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  gap: 14px;
 }
 
-.before .label,
-.after .label {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  background: #f9fafb;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
 }
 
-.before .time {
-  font-size: 24px;
-  font-weight: 700;
-  color: #dc2626;
+.feature-item:hover {
+  border-color: #a855f7;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
+  transform: translateX(4px);
 }
 
-.after .time {
-  font-size: 28px;
-  font-weight: 800;
+.feature-icon {
+  color: #a855f7;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.after .time.highlight {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.feature-item span {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
 }
 
-.arrow {
-  color: #7c3aed;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-.proof-stat {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(167, 139, 250, 0.12) 100%);
-  backdrop-filter: blur(8px);
-  padding: 18px 32px;
-  border-radius: 16px;
-  border: 1px solid rgba(124, 58, 237, 0.15);
-}
-
-.stat-value {
-  font-size: 32px;
-  font-weight: 800;
-  color: #6d28d9;
-}
-
-.stat-label {
-  font-size: 13px;
-  color: #7c3aed;
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-/* ---- 箭头按钮 ---- */
+/* 箭头按钮 */
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -547,21 +550,21 @@ onUnmounted(() => {
   cursor: pointer;
   opacity: 0;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 10;
   font-size: 18px;
   color: #333;
 }
 
 .proof-carousel:hover .carousel-arrow,
-.proof-carousel:focus-visible .carousel-arrow {
+.proof-carousel:focus-within .carousel-arrow {
   opacity: 1;
 }
 
 .carousel-arrow:hover {
   background: white;
   transform: translateY(-50%) scale(1.1);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .carousel-arrow:active {
@@ -576,7 +579,7 @@ onUnmounted(() => {
   right: 16px;
 }
 
-/* ---- 指示点 ---- */
+/* 指示点 */
 .carousel-dots {
   position: absolute;
   bottom: 20px;
@@ -603,47 +606,40 @@ onUnmounted(() => {
 }
 
 .carousel-dot.active {
-  background: var(--primary-color);
+  background: #a855f7;
   width: 28px;
   border-radius: 5px;
 }
 
+/* 响应式设计 */
 @media (max-width: 1024px) {
-  .carousel-wrapper {
-    max-width: 800px;
+  .container {
+    padding: 0 16px;
   }
   
   .proof-content {
-    padding: 48px 36px;
-    min-height: 440px;
+    min-height: 500px;
+    grid-template-columns: 1fr 1fr;
   }
   
-  .proof-card-content {
-    padding: 36px 32px;
-  }
-
-  .proof-body {
-    gap: 28px;
-  }
-  
-  .proof-visual {
-    padding: 24px 20px;
-  }
-  
-  .comparison {
-    gap: 20px;
-  }
-  
-  .before .time {
-    font-size: 22px;
-  }
-  
-  .after .time {
-    font-size: 26px;
+  .proof-info-section {
+    padding: 40px 32px;
   }
 
   .proof-title {
-    font-size: 24px;
+    font-size: 22px;
+  }
+  
+  .proof-desc {
+    font-size: 14px;
+  }
+  
+  .feature-item {
+    padding: 13px;
+  }
+  
+  .feature-item span {
+    font-size: 13px;
   }
 }
 
@@ -660,12 +656,16 @@ onUnmounted(() => {
     font-size: 16px;
   }
 
+  .carousel-wrapper {
+    padding: 0 16px;
+  }
+
   .proof-carousel {
-    border-radius: 16px;
+    border-radius: 20px;
   }
 
   .carousel-viewport {
-    border-radius: 16px;
+    border-radius: 20px;
   }
 
   .carousel-arrow {
@@ -692,58 +692,46 @@ onUnmounted(() => {
   }
 
   .proof-content {
-    padding: 40px 24px;
+    grid-template-columns: 1fr; /* 移动端垂直布局 */
     min-height: auto;
   }
 
-  .proof-card-content {
+  .proof-image-section {
+    height: 240px;
+  }
+
+  .proof-info-section {
     padding: 32px 24px;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
   }
 
   .proof-header {
-    margin-bottom: 28px;
-  }
-
-  .proof-body {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .proof-visual {
-    padding: 24px 18px;
-  }
-
-  .comparison {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .arrow {
-    transform: rotate(90deg);
-  }
-
-  .before .time {
-    font-size: 22px;
-  }
-
-  .after .time {
-    font-size: 26px;
+    margin-bottom: 24px;
   }
 
   .proof-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .proof-desc {
     font-size: 14px;
   }
 
-  .proof-stat {
-    padding: 16px 28px;
+  .proof-features {
+    gap: 12px;
   }
 
-  .stat-value {
-    font-size: 28px;
+  .feature-item {
+    padding: 13px;
+  }
+
+  .feature-icon {
+    font-size: 17px;
+  }
+
+  .feature-item span {
+    font-size: 13px;
   }
 
   .carousel-dots {

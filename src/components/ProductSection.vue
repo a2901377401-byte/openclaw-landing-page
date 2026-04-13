@@ -18,14 +18,14 @@
             <h3 class="product-name">{{ product.name }}</h3>
             <p class="product-value">{{ product.value }}</p>
             <div class="product-divider"></div>
-            <ul class="product-features">
+            <!-- <ul class="product-features">
               <li v-for="(feature, fIndex) in product.features" :key="fIndex">
                 <el-icon>
                   <Check />
                 </el-icon>
                 <span>{{ feature }}</span>
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
         <div class="slider-dots">
@@ -43,7 +43,7 @@ import { User, Document, Timer, Shop, OfficeBuilding, Check } from '@element-plu
 import CONTACT_INFO from '../config/contact.js'
 
 const goToWechat = () => {
-  window.location.href = `weixin://dl/addfriend/${CONTACT_INFO.wechat}`
+  window.open('https://work.weixin.qq.com/ca/cawcde427f39be25db', '_blank')
 }
 
 const products = [

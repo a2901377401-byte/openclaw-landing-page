@@ -6,8 +6,8 @@
       <PainAndSolution class="section-bg-warm" />
       <ProductSection class="section-bg-cool" />
       <KnowledgeBase class="section-bg-slate" />
-      <SocialProof class="section-bg-mist" />
       <SceneVideos class="section-bg-warm" />
+      <SocialProof class="section-bg-mist" />
       <PricingSection class="section-bg-light" />
       <FAQSection class="section-bg-white" />
     </main>

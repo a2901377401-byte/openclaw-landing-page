@@ -1,5 +1,5 @@
 <template>
-  <section class="scene-videos">
+  <section class="scene-videos" id="cases">
     <div class="scene-header">
       <h2 class="scene-title">主要服务对象的业务输出</h2>
     </div>
