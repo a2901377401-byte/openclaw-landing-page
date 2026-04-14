@@ -3,46 +3,24 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">效率提升，看得见</h2>
-        <p class="section-subtitle">真实数据，不玩虚的</p>
+        <p class="section-subtitle">从<span class="highlight">“防患未然”</span>到<span class="highlight">“降本增效”</span>，AI
+          正在通过视觉洞察与自动化工作流，让专业任务极简脱手，帮助企业与个人彻底告别低效，实现生产力的全面进化。</p>
       </div>
       <div class="carousel-wrapper">
-        <div
-          class="proof-carousel"
-          ref="carouselRef"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="案例轮播"
-          tabindex="0"
-          @mouseenter="stopAutoPlay"
-          @mouseleave="resumeAutoPlay"
-          @focus="stopAutoPlay"
-          @blur="resumeAutoPlay"
-          @touchstart="handlePointerDown"
-          @touchmove.prevent="handlePointerMove"
-          @touchend="handlePointerUp"
-          @touchcancel="handlePointerUp"
-          @mousedown.prevent="handlePointerDown"
-        >
+        <div class="proof-carousel" ref="carouselRef" role="region" aria-roledescription="carousel" aria-label="案例轮播"
+          tabindex="0" @mouseenter="stopAutoPlay" @mouseleave="resumeAutoPlay" @focus="stopAutoPlay"
+          @blur="resumeAutoPlay" @touchstart="handlePointerDown" @touchmove.prevent="handlePointerMove"
+          @touchend="handlePointerUp" @touchcancel="handlePointerUp" @mousedown.prevent="handlePointerDown">
           <div class="carousel-viewport" ref="viewportRef">
-            <div 
-              class="carousel-track" 
-              ref="trackRef"
-              :style="trackStyle"
-              @transitionend="handleTransitionEnd"
-            >
-              <div
-                class="proof-card"
-                v-for="(proof, index) in displayProofs"
-                :key="index"
-                role="group"
-                :aria-roledescription="`第 ${getRealIndex(index) + 1} 个案例，共 ${proofs.length} 个`"
-              >
+            <div class="carousel-track" ref="trackRef" :style="trackStyle" @transitionend="handleTransitionEnd">
+              <div class="proof-card" v-for="(proof, index) in displayProofs" :key="index" role="group"
+                :aria-roledescription="`第 ${getRealIndex(index) + 1} 个案例，共 ${proofs.length} 个`">
                 <div class="proof-content">
                   <!-- 左侧图片区域 -->
                   <div class="proof-image-section">
                     <img :src="'/' + proof.bgImage" :alt="proof.title" class="proof-image" />
                   </div>
-                  
+
                   <!-- 右侧文字区域 -->
                   <div class="proof-info-section">
                     <div class="proof-header">
@@ -51,7 +29,9 @@
                     </div>
                     <div class="proof-features">
                       <div class="feature-item" v-for="(feature, fIndex) in proof.features" :key="fIndex">
-                        <el-icon class="feature-icon"><Check /></el-icon>
+                        <el-icon class="feature-icon">
+                          <Check />
+                        </el-icon>
                         <span>{{ feature }}</span>
                       </div>
                     </div>
@@ -61,36 +41,26 @@
             </div>
           </div>
 
-          <button
-            class="carousel-arrow arrow-left"
-            @click="prevSlide"
-            aria-label="上一个案例"
-          >
-            <el-icon><ArrowLeft /></el-icon>
+          <button class="carousel-arrow arrow-left" @click="prevSlide" aria-label="上一个案例">
+            <el-icon>
+              <ArrowLeft />
+            </el-icon>
           </button>
 
-          <button
-            class="carousel-arrow arrow-right"
-            @click="nextSlide"
-            aria-label="下一个案例"
-          >
-            <el-icon><ArrowRight /></el-icon>
+          <button class="carousel-arrow arrow-right" @click="nextSlide" aria-label="下一个案例">
+            <el-icon>
+              <ArrowRight />
+            </el-icon>
           </button>
 
           <div class="carousel-dots" role="tablist" aria-label="案例导航">
-            <button
-              v-for="(_, index) in proofs"
-              :key="index"
-              class="carousel-dot"
-              :class="{ active: index === realIndex }"
-              role="tab"
-              :aria-selected="index === realIndex"
-              :aria-label="`切换到第 ${index + 1} 个案例`"
-              @click.stop="goToSlide(index)"
-            ></button>
+            <button v-for="(_, index) in proofs" :key="index" class="carousel-dot"
+              :class="{ active: index === realIndex }" role="tab" :aria-selected="index === realIndex"
+              :aria-label="`切换到第 ${index + 1} 个案例`" @click.stop="goToSlide(index)"></button>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 </template>
@@ -110,7 +80,7 @@ const proofs = [
       '📜 一键报告：检查完成即生成合规报告，节省90%以上的时间',
       '💼 成本优化：大幅减少人力和时间成本，显著提升检查频率'
     ],
-    bgImage: '安全助手.jpg'
+    bgImage: 'case/安全助手.jpg'
   },
   {
     icon: Cpu,
@@ -122,7 +92,7 @@ const proofs = [
       '📱 即时手机推送',
       '✅ 减少人工巡检'
     ],
-    bgImage: '消防助手.jpg'
+    bgImage: 'case/消防助手.jpg'
   },
   {
     icon: Document,
@@ -134,7 +104,7 @@ const proofs = [
       '自动排版与发布',
       '效率提升 92%'
     ],
-    bgImage: '自媒体案例.jpg'
+    bgImage: 'case/2.png'
   },
   {
     icon: Timer,
@@ -146,7 +116,7 @@ const proofs = [
       '数据可视化报表',
       '效率提升 98%'
     ],
-    bgImage: '职场案例.jpg'
+    bgImage: 'case/1.png'
   },
   {
     icon: Cpu,
@@ -158,9 +128,9 @@ const proofs = [
       '实时监控预警',
       '效率提升 90%'
     ],
-    bgImage: '企业案例.jpg'
+    bgImage: 'case/3.png'
   },
-  
+
 ]
 
 const realIndex = ref(0)
@@ -216,7 +186,7 @@ const trackStyle = computed(() => {
 
 const getClampedOffset = (offset) => {
   if (!viewportWidth.value) return 0
-  
+
   const isAtStart = currentIndex.value === 1
   const isAtEnd = currentIndex.value === proofs.length
 
@@ -224,7 +194,7 @@ const getClampedOffset = (offset) => {
     const damping = Math.max(0.15, 1 - Math.abs(offset) / (viewportWidth.value * 2))
     return offset * damping
   }
-  
+
   return offset
 }
 
@@ -232,9 +202,9 @@ const slideTo = (targetIndex) => {
   if (isAnimating.value || isDragging.value) return
   isAnimating.value = true
   transitionEnabled.value = true
-  
+
   currentIndex.value = targetIndex
-  
+
   if (targetIndex === 0) {
     realIndex.value = proofs.length - 1
   } else if (targetIndex === proofs.length + 1) {
@@ -252,7 +222,7 @@ const goToSlide = (index) => slideTo(index + 1)
 
 const handleTransitionEnd = () => {
   isAnimating.value = false
-  
+
   if (currentIndex.value === 0) {
     fixPosition(proofs.length)
   } else if (currentIndex.value === proofs.length + 1) {
@@ -262,10 +232,10 @@ const handleTransitionEnd = () => {
 
 const fixPosition = (targetIndex) => {
   transitionEnabled.value = false
-  
+
   requestAnimationFrame(() => {
     currentIndex.value = targetIndex
-    
+
     requestAnimationFrame(() => {
       transitionEnabled.value = true
     })
@@ -314,7 +284,7 @@ const handlePointerMove = (e) => {
   if (!isDragging.value) return
   const currentX = e.touches ? e.touches[0].clientX : e.clientX
   const diff = currentX - pointerStartX.value
-  
+
   dragOffset.value = getClampedOffset(diff)
 }
 
@@ -365,13 +335,29 @@ onUnmounted(() => {
 <style scoped>
 .social-proof {
   padding: 80px 0;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-proof::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {
@@ -384,17 +370,26 @@ onUnmounted(() => {
   font-weight: 700;
   margin-bottom: 12px;
   color: #1a1a1a;
+  background: linear-gradient(135deg, #6b46c1 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
 }
 
 .section-subtitle {
   font-size: 18px;
   color: #6b7280;
+  font-weight: 500;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .carousel-wrapper {
   position: relative;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 60px;
 }
 
 .proof-carousel {
@@ -404,6 +399,7 @@ onUnmounted(() => {
   overflow: visible;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .proof-carousel:focus-visible {
@@ -446,9 +442,10 @@ onUnmounted(() => {
 
 .proof-content {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* 左右各占一半 */
+  grid-template-columns: 2fr 1fr;
   min-height: 560px;
   width: 100%;
+  background: linear-gradient(to right, #ffffff 50%, #fafafa 50%);
 }
 
 .proof-image-section {
@@ -463,10 +460,15 @@ onUnmounted(() => {
 
 .proof-image {
   width: auto;
-  height: auto;
+  height: 580px;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.proof-image:hover {
+  transform: scale(1.05);
 }
 
 .proof-info-section {
@@ -489,6 +491,11 @@ onUnmounted(() => {
   margin: 0 0 14px 0;
   color: #1a1a1a;
   line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+.proof-title:hover {
+  color: #6b46c1;
 }
 
 .proof-desc {
@@ -496,6 +503,7 @@ onUnmounted(() => {
   color: #666;
   line-height: 1.7;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .proof-features {
@@ -611,17 +619,56 @@ onUnmounted(() => {
   border-radius: 5px;
 }
 
+/* 统计信息区域 */
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 32px;
+  font-weight: 700;
+  color: #6b46c1;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #6b46c1 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 16px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
 /* 响应式设计 */
 @media (max-width: 1024px) {
   .container {
     padding: 0 16px;
   }
-  
+
   .proof-content {
     min-height: 500px;
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .proof-info-section {
     padding: 40px 32px;
   }
@@ -629,18 +676,33 @@ onUnmounted(() => {
   .proof-title {
     font-size: 22px;
   }
-  
+
   .proof-desc {
     font-size: 14px;
   }
-  
+
   .feature-item {
     padding: 13px;
   }
-  
+
   .feature-item span {
     font-size: 13px;
   }
+
+  .stats-section {
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
+}
+
+.highlight {
+  color: #a855f7;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 @media (max-width: 768px) {
@@ -692,7 +754,7 @@ onUnmounted(() => {
   }
 
   .proof-content {
-    grid-template-columns: 1fr; /* 移动端垂直布局 */
+    grid-template-columns: 1fr;
     min-height: auto;
   }
 
@@ -745,6 +807,20 @@ onUnmounted(() => {
 
   .carousel-dot.active {
     width: 22px;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .stat-number {
+    font-size: 24px;
+  }
+
+  .stat-label {
+    font-size: 14px;
   }
 }
 </style>

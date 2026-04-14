@@ -4,6 +4,14 @@
       <div class="section-header">
         <h2 class="section-title">企业知识库</h2>
         <p class="section-subtitle">定制 AI 数据源，精准回答每一个问题</p>
+        <div class="sources-inline">
+          <div class="source-item" v-for="(source, index) in sources" :key="index">
+            <el-icon :size="20">
+              <component :is="source.icon" />
+            </el-icon>
+            <span>{{ source.name }}</span>
+          </div>
+        </div>
       </div>
       <div class="knowledge-content">
         <div class="knowledge-left">
@@ -57,17 +65,6 @@
                 </template>
               </el-input>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="knowledge-sources">
-        <h3 class="sources-title">支持多种数据源接入</h3>
-        <div class="sources-grid">
-          <div class="source-item" v-for="(source, index) in sources" :key="index">
-            <el-icon :size="32">
-              <component :is="source.icon" />
-            </el-icon>
-            <span>{{ source.name }}</span>
           </div>
         </div>
       </div>
@@ -130,6 +127,34 @@ const sources = [
 .section-subtitle {
   font-size: 18px;
   color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.sources-inline {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.sources-inline .source-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  border-radius: 50px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sources-inline .source-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--primary-color);
 }
 
 .knowledge-content {
@@ -284,48 +309,6 @@ const sources = [
   cursor: pointer;
 }
 
-.knowledge-sources {
-  text-align: center;
-}
-
-.sources-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 24px;
-}
-
-.sources-grid {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.source-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 32px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-  color: var(--text-secondary);
-}
-
-.source-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  color: var(--primary-color);
-}
-
-.source-item span {
-  font-size: 14px;
-  font-weight: 500;
-}
-
 @media (max-width: 900px) {
   .knowledge-content {
     grid-template-columns: 1fr;
@@ -347,12 +330,13 @@ const sources = [
     font-size: 28px;
   }
 
-  .sources-grid {
-    gap: 16px;
+  .sources-inline {
+    gap: 12px;
   }
 
-  .source-item {
-    padding: 16px 24px;
+  .sources-inline .source-item {
+    padding: 10px 18px;
+    font-size: 13px;
   }
 }
 </style>
